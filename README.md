@@ -1,10 +1,10 @@
 # Ambiq Development Tips and Tricks
 
-This file is a conglomeration of tips and trips for developing Ambiq applications outside of the traditional MCU toolchain. The first tip: if you're developing on a PC, stick to the mainstream IAR or Keil toolchains and IDEs. If you're on Mac or Linux, read on.
+This file is a conglomeration of tips and trips for developing Ambiq applications outside of the traditional [MCU](https://en.wikipedia.org/wiki/Microcontroller) toolchain. The first tip: if you're developing on a PC, stick to the mainstream [IAR](https://www.iar.com/products/architectures/arm/iar-embedded-workbench-for-arm/) or [Keil](https://www.keil.com/) toolchains and IDEs. If you're on Mac or Linux, read on.
 
 ## Introduction to Ambiq Development
 
-Ambiq SOCs are microcontroller-based (in Apollo4's case specifically, they're CortexM4-based). These MCUs don't have full OSes such as Linux - there are no network stacks, filesystems, threading, POSIX anything - shucks, there isn't even a proper malloc() to speak of. There *is*, however, a very nice SDK with a collection of examples to help you start building your applications.
+Ambiq SOCs are microcontroller-based (in Apollo4's case specifically, they're [ARM CortexM4-based](https://developer.arm.com/Processors/Cortex-M4)). These MCUs don't have full OSes such as Linux - there are no network stacks, filesystems, threading, POSIX anything - shucks, there isn't even a proper malloc() to speak of. There *is*, however, a very nice AmbiqSuite SDK with a collection of examples to help you start building your applications.
 
 ### TL;DR Hello World
 
@@ -44,7 +44,7 @@ K-->A
 
 #### Dataflow
 
-As you can see from the following diagram, you'll develop and compile on your development platform ('laptop' in the diagram), then use a jlink tool to send the code over USB to the EVB. Once the code is running, you can interact with with via TTY (the onboard EVB Jlink USB device will mount as a TTY USBmodem on your laptop), SWO (single wire output serial device), or RTT (real time transfer) interface. You can use any TTY app on your laptop, but the SWO and RTT interfaces are best handled by Jlink tools.
+As you can see from the following diagram, you'll develop and compile on your development platform ('laptop' in the diagram below), then use a jlink tool to send the code over USB to the EVB. Once the code is running, you can interact with with via TTY (the onboard EVB Jlink USB device will mount as a TTY USBmodem on your laptop), SWO (single wire output serial device), or RTT (real time transfer) interface. You can use any TTY app on your laptop, but the SWO and RTT interfaces are best handled by Jlink tools.
 
 ```mermaid
 graph TD;
@@ -67,7 +67,7 @@ Astute readers will note several tools implied by the above diagrams; specifical
 
 AmbiqSuite SDK
 
-Ambiq's SDK includes everything you need to produce working binaries for the Apollo4. **It isn't publicly available** - ask you Ambiq representative for a copy.
+Ambiq's SDK includes everything you need to produce working binaries for the Apollo4. **It isn't publicly available** - ask your Ambiq representative for a copy.
 
 ### Cross Compiler
 
@@ -81,7 +81,7 @@ Note: you'll see a lot of confusing discussion of Jlink probes, IDEs, etc. The A
 
 ### IDE
 
-This readme covers the use of Visual Studio Code, and the provides config files for the above toolchains. Other IDEs are left as an excersize to the user.
+This readme covers the use of Visual Studio Code, and the provided config files for the above toolchains. Other IDEs are left as an exercise to the user.
 
 ### Other Stuff
 
@@ -144,12 +144,12 @@ VSCode can be configured to build, deploy, and debug code on an EVB. You'll need
 
 You'll need the following (install from VS Code's extensions browser):
 
-- Cortex-Debug (by marus25)
-- Arm Assembly (by dan-c-underwood)
+- [Cortex-Debug](https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug) (by marus25)
+- [Arm Assembly](https://marketplace.visualstudio.com/items?itemName=dan-c-underwood.arm) (by dan-c-underwood)
 
 ### Configuration Files
 
-VS Code configuration files live in a `.vscode` directory at the root of your SDK directory structure. We need two create two files: a tasks file that tells VS code how to build Ambiq binaries, and a launch file that tells it how to use Jlink to install and execute the binary on an EVB
+VS Code configuration files live in a `.vscode` directory at the root of your SDK directory structure. We need to create two files: a tasks file that tells VS code how to build Ambiq binaries, and a launch file that tells it how to use Jlink to install and execute the binary on an EVB
 
 This is the `tasks.json` file. The way it is written, you have to launch the build task while the editor is 'focused' on the `main()`.
 
@@ -210,9 +210,9 @@ The `tasks.json` file defines a 'launch' task. There are several hardcoded paths
 
 ## I/O Interfaces
 
-AmbiqSuite has robust support for "printing" to several character-based interfaces. It doesn't the same for reading from those interfaces (the AI MLPerf repo for an example implementation of a blocking 'getchar()').
+AmbiqSuite has robust support for "printing" to several character-based interfaces. It doesn't have the same for reading from those interfaces (see the [AI MLPerf repo](https://github.com/AmbiqAI/ai/blob/main/mlperf/src/am_utils/uart.c) for an example implementation of a blocking `getchar()`).
 
-Printing to an interface involves enabling it, pointing the HAL printf to that interface, and running a laptop-side application that can display it.
+Printing to an interface involves enabling it, pointing the HAL `printf` to that interface, and running a laptop-side application that can display it.
 
 | Interface  | Working with it                                              | Application                                                  |
 | ---------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -234,5 +234,5 @@ There is no memory allocation facility.
 There are 3 memory types 
 
 - MRAM: ~2MB of non-volatile, R/W. By default your code and `const` will be mapped here.
-- TCM: Arm's 'tightly coupled memory' - fast SRAM that is directly addressable by the core. Be default your stack and heap are mapped here. There is just shy of 400KB, so use sparingly. For example, I put MLPerfs models here, but the Person Detect model doesn't fit, so I put that in MRAM
+- TCM: Arm's 'tightly coupled memory' - fast SRAM that is directly addressable by the core. By default your stack and heap are mapped here. There is just shy of 400KB, so use sparingly. For example, I put MLPerfs models here, but the Person Detect model doesn't fit, so I put that in MRAM
 - SRAM: 1.5MB of SRAM. Fast, but slower than TCM, and more power hungry. I haven't used this yet.
