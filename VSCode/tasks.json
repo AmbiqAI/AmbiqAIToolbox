@@ -15,7 +15,7 @@
                 "isDefault": true
             },
             "problemMatcher": {
-                "base": "$gcc", 
+                "base": "$gcc",
                 "fileLocation": ["relative", "${relativeFileDirname}/."]
             }
         }

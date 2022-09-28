@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.isort]
+profile = "black"
+src_paths = ["python", "setup.py"]
+skip = [".venv", "datasets", "outputs", "wandb"]
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+include = [
+   "python/**",
+]
+exclude = [
+   "python/data/**",
+   "python/datasets/**",
+   "python/outputs/**",
+   "**/__pycache__", ".git", ".venv"
+]
+
+[tool.pylint.master]
+ignore=".venv"
+
+[tool.pylint.message_control]
+disable = [
+   "wrong-import-order",  # handled by isort
+   "duplicate-code",  # may re-enable later.
+]
