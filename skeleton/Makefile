@@ -18,6 +18,7 @@ $(ACTIVATE): setup.py pyproject.toml
 test: env
 	@echo "Running tests and sanity checks..."
 	@. $(ACTIVATE); pytest tests/
+	# could add other C/C++ testing here
 
 # execute automatic formatting and other code style/complexity checks.
 lint: env

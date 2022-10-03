@@ -1,5 +1,7 @@
 # Ambiq standard project skeleton
 
+[![tests](https://github.com/AmbiqAI/CHANGE_ME/actions/workflows/tests.yml/badge.svg)](https://github.com/AmbiqAI/CHANGE_ME/actions/workflows/tests.yml)
+
 Provides a cohesive starting point for each Ambiq AI derived repository.
 
 It is of course expected that you will update and modify this to fit your
