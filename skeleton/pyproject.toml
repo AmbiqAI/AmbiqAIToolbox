@@ -1,6 +1,35 @@
+[tool.poetry]
+name = "change_me"
+version = "0.0.1"
+description = "change_me reference model"
+authors = ["Ambiq AI <ambiq.ai@ambiq.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/ambiqai/change_me"
+packages = [
+    { include = "change_me", from = "python" }
+]
+
+[tool.taskipy.tasks]
+black = "black python"
+lint = "pylint python"
+test = "pytest tests"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.11"
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.3.0"
+pre-commit = "^2.19.0"
+pyright = "^1.1.264"
+isort = "^5.10.0"
+pylint = "^2.13.8"
+pytest = "^7.1.2"
+taskipy = "^1.10.3"
+
 [build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.isort]
 profile = "black"
@@ -10,14 +39,13 @@ skip = [".venv", "datasets", "outputs", "wandb"]
 [tool.pyright]
 venvPath = "."
 venv = ".venv"
+extraPaths = "python/"
 include = [
    "python/**",
 ]
 exclude = [
-   "python/data/**",
-   "python/datasets/**",
-   "python/outputs/**",
-   "**/__pycache__", ".git", ".venv"
+   "datasets/**",
+   "results/**"
 ]
 
 [tool.pylint.master]
@@ -27,4 +55,5 @@ ignore=".venv"
 disable = [
    "wrong-import-order",  # handled by isort
    "duplicate-code",  # may re-enable later.
+   "missing-module-docstring",
 ]

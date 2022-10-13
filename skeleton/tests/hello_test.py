@@ -2,7 +2,7 @@
 Unit tests for hello.py
 """
 
-from CHANGE_ME import hello
+from change_me import hello
 
 
 def test_hello(capfd):

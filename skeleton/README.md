@@ -1,11 +1,11 @@
 # Ambiq standard project skeleton
 
-[![tests](https://github.com/AmbiqAI/CHANGE_ME/actions/workflows/tests.yml/badge.svg)](https://github.com/AmbiqAI/CHANGE_ME/actions/workflows/tests.yml)
+[![tests](https://github.com/AmbiqAI/change_me/actions/workflows/tests.yml/badge.svg)](https://github.com/AmbiqAI/change_me/actions/workflows/tests.yml)
 
 Provides a cohesive starting point for each Ambiq AI derived repository.
 
 It is of course expected that you will update and modify this to fit your
-needs!  At an absolute minimum, find and replace any instance of `CHANGE_ME`you
+needs!  At an absolute minimum, find and replace any instance of `change_me`you
 come across! :)
 
 
@@ -15,7 +15,6 @@ come across! :)
 .
 +-- README.md  # this file
 +-- pyproject.toml  # python project configuration file
-+-- setup.py  # python setup script
 +-- Makefile  # top-level command driver controlling building/running etc.
 +-- /checkpoints   # saved trained models
 +-- /configs  # configuration settings files
@@ -29,7 +28,7 @@ come across! :)
 
 ## Some Useful Commands
 ```
-sed -i 's/CHANGE_ME/<your_repo_name>/g' *
+sed -i 's/change_me/<your_repo_name>/g' *
 ```
 run this once from this directory replacing the text `<your_repo_name>` with
 the name of your project.

@@ -4,15 +4,11 @@ ACTIVATE := $(VIRTUALENV_DIR)/bin/activate
 # one time environment prep and dependency installation for development
 env: $(ACTIVATE)
 
-$(ACTIVATE): setup.py pyproject.toml
+$(ACTIVATE): pyproject.toml poetry.lock
 	@echo "Updating/installing virtual environment and dependencies..."
-	@test -d $(VIRTUALENV_DIR) || python3 -m venv $(VIRTUALENV_DIR)
-	@. $(ACTIVATE); pip install -U pip
-	@. $(ACTIVATE); pip install -U pre-commit
-	@. $(ACTIVATE); pip install -U -e ".[dev]"
-	@. $(ACTIVATE); pre-commit install
-	@echo "installation complete.  Type:   . '$(ACTIVATE)' to work interactively"
-	@touch $(ACTIVATE)
+	poetry install
+	poetry run pre-commit install
+	@echo "installation complete.  Type: . '$(ACTIVATE)' to work interactively"
 
 # run unit/other tests
 test: env
@@ -29,6 +25,5 @@ lint: env
 clean:
 	@echo "Cleaning up created files..."
 	@rm -rf $(VIRTUALENV_DIR)
-
 
 .phony: env test lint clean

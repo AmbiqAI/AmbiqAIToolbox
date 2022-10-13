@@ -6,7 +6,7 @@ repos:
         files: evb/src/
         types_or: [c++, c]
   - repo: https://github.com/psf/black
-    rev: 22.8.0
+    rev: 22.10.0
     hooks:
       - id: black
         language_version: python3
@@ -27,14 +27,15 @@ repos:
       - id: isort
         args: ["--profile", "black", "--filter-files"]
   - repo: https://github.com/RobertCraigie/pyright-python
-    rev: v1.1.273
+    rev: v1.1.275
     hooks:
       - id: pyright
+        entry: bash -c 'cd skeleton && pyright'
         types: [python]
   - repo: local
     hooks:
       - id: pylint
         name: pylint
-        entry: pylint
+        entry: bash -c 'cd skeleton && poetry run task lint'
         language: system
         types: [python]
