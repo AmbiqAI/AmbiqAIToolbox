@@ -55,5 +55,4 @@ ignore=".venv"
 disable = [
    "wrong-import-order",  # handled by isort
    "duplicate-code",  # may re-enable later.
-   "missing-module-docstring",
 ]

@@ -1,3 +1,5 @@
+"""change_me serves as a skeleton for Ambiq AI model zoo projects."""
+
 try:
     from importlib.metadata import version
 
