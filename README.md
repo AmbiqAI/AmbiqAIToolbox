@@ -83,6 +83,16 @@ Note: you'll see a lot of confusing discussion of Jlink probes, IDEs, etc. The A
 
 This readme covers the use of Visual Studio Code, and the provided config files for the above toolchains. Other IDEs are left as an exercise to the user.
 
+### Project Skeleton
+
+In the [skeleton](skeleton) directory you can find a template to get you
+started on a new project repository (ideally you're also pushing this to
+github!).
+
+Out of the box this sets you up for python/c based development, provides
+automatic execution of tests and linting, and will help ensure you are
+writing code in a manner consistent with other Ambiq developers.
+
 ### Other Stuff
 
 Depending on your setup, you'll likely need other stuff (LLVM, Tensorflow, CMake, Xcode command line tools, etc) but the above are the basic tools you'll use to compile and execute your code.
@@ -199,7 +209,7 @@ The `tasks.json` file defines a 'launch' task. There are several hardcoded paths
             "armToolchainPath": "<YOUR PATH>/gcc-arm-none-eabi-10.3-2021.07/bin",
             "device": "AMAP42KK-KBR",
             "interface": "swd",
-            "serialNumber": "", 
+            "serialNumber": "",
             "runToMain": tru
             "svdFile": "${workspaceRoot}/pack/SVD/apollo4b.svd", // CHANGE PER BOARD
 
@@ -231,7 +241,7 @@ Printing to an interface involves enabling it, pointing the HAL `printf` to that
 
 There is no memory allocation facility.
 
-There are 3 memory types 
+There are 3 memory types
 
 - MRAM: ~2MB of non-volatile, R/W. By default your code and `const` will be mapped here.
 - TCM: Arm's 'tightly coupled memory' - fast SRAM that is directly addressable by the core. By default your stack and heap are mapped here. There is just shy of 400KB, so use sparingly. For example, I put MLPerfs models here, but the Person Detect model doesn't fit, so I put that in MRAM
